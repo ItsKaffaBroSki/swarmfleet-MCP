@@ -1,0 +1,13 @@
+# /etc/caddy/Caddyfile  (replace hub.example.com with your domain)
+# Taken from the project's own deployment notes (docs/REFERENCE.md, "Running it on a VPS").
+# Caddy gets and renews the certificate and passes the client's address in X-Forwarded-For, which hub_server.py
+# believes only from 127.0.0.1 with --behind-proxy. The keep-alive to the server stays below the server's own
+# 5 seconds, so Caddy never reuses a connection the server just closed. HSTS keeps browsers on https.
+hub.example.com {
+    header Strict-Transport-Security "max-age=31536000"
+    reverse_proxy 127.0.0.1:8780 {
+        transport http {
+            keepalive 4s
+        }
+    }
+}

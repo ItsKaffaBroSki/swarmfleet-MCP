@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.pyc
+
+# Local data of the hub and the fleet server: never commit these
+*.db
+*.db-wal
+*.db-shm
+server.key
+server.json
+keys.env
+.env
+models.json
+.agent-hub/
+.agent-hub-server/

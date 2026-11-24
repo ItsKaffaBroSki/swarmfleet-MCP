@@ -1,0 +1,23 @@
+# /etc/systemd/system/agent-hub-server.service
+# Taken from the project's own deployment notes (docs/REFERENCE.md, "Running it on a VPS").
+# Run `hub_server.py owner init --public-url https://...` ONCE before starting this unit: without a public URL in
+# server.json, `serve --behind-proxy` exits and systemd will restart it in a loop.
+[Unit]
+Description=Agent Hub fleet server
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=agenthub
+Group=agenthub
+Environment=AGENT_HUB_SERVER_HOME=/var/lib/agent-hub-server
+ExecStart=/opt/agent-hub/venv/bin/python /opt/agent-hub/hub_server.py serve --behind-proxy
+Restart=on-failure
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+ReadWritePaths=/var/lib/agent-hub-server
+
+[Install]
+WantedBy=multi-user.target

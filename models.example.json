@@ -1,0 +1,27 @@
+{
+  "providers": {
+    "mygateway": {
+      "api": "openai-chat",
+      "base_url": "https://llm.example.com/v1",
+      "api_key_env": "MYGATEWAY_API_KEY",
+      "headers": { "x-team": "platform" }
+    }
+  },
+  "models": {
+    "kimi": {
+      "provider": "mygateway",
+      "model": "kimi-k3",
+      "label": "Kimi K3",
+      "aliases": ["moonshot"],
+      "params": { "max_tokens": 16000 }
+    },
+    "local-coder": {
+      "provider": "ollama",
+      "model": "qwen3-coder:30b",
+      "label": "Qwen3 Coder (local)"
+    },
+    "opus-5.5": { "effort": "xhigh" },
+    "astra": { "effort": "high" },
+    "haiku-5.5": null
+  }
+}
